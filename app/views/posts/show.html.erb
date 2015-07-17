@@ -17,12 +17,21 @@
 <%= form_for [@post, @comment] do |f| %>
   <%= render 'shared/errors', obj: @comment %>
   <div class='control-group'>
-    <%= f.label :body %>
+    <%= f.label :body, 'Leave A Comment' %>
     <%= f.text_area :body %>
   </div>
   <%= f.submit "Create comment", class: "btn btn-primary" %>
 <% end %>
 
+<p>Comments:</p>
 
+<% @post.comments.each do |comment| %>
+  <div class='well span8'>
+    <em>"<%= comment.body %>"</em>
+    <br/>
+    <span class='quiet'>by</span>
+    <small>at</small>
+  </div>
+<% end %>
 
 <!---this is test to see if the code is working -->
