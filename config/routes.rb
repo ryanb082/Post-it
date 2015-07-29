@@ -10,9 +10,23 @@ PostitTemplate::Application.routes.draw do
 
   
   resources :posts, except: [:destroy] do
-  	resources :comments, only: [:create]
+    member do 
+      post 'vote' # /post/3/vote  #post is added for semantics
+    end
+
+  	resources :comments, only: [:create] do
+      member do
+        post 'vote'
+      end
+    end
   end
   resources :categories, only: [:new, :create, :show]
   resources :users, only: [:show, :create, :edit, :update]
 
 end
+
+#POST /votes => votes#create
+# - need 2 pieces of info
+
+#POST/posts/3/vote => posts#vote
+#POST/comments/3/vote => comments#vote
