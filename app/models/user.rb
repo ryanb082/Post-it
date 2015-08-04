@@ -10,6 +10,16 @@ class User < ActiveRecord::Base
 
   before_save :generate_slug!
 
+  def admin?
+    self.role == 'admin'
+  end
+
+  def moderator?
+    self.role == 'moderator'
+  end
+
+  
+
   def to_param
     self.slug
   end
