@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
 
   before_save :generate_slug!
 
+  def two_factor_auth?
+    !self.phone.blank?
+  end
+
+  def generate_pin!
+    self.update_column(:pin, rand(10**6)) # randome 6 digit number
+  end
+
+
   def admin?
     self.role == 'admin'
   end
@@ -18,7 +27,7 @@ class User < ActiveRecord::Base
     self.role == 'moderator'
   end
 
-  
+
 
   def to_param
     self.slug

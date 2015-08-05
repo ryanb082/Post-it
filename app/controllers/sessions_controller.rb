@@ -17,14 +17,21 @@ before_action :require_user, except:[:new, :create]
     # where gives and array, even if only one. That's why add .first at the end
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      flash[:notice] = "You've logged in."
-      redirect_to root_path
+      if user.two_factor_auth?
+        # gen a pin
+        user.generate_pin!
+        # send pin to twilio, sms to user's phone
+        redirect_to pin_path
+        # show pin form
+      else
+        session[:user_id] = user.id
+        flash[:notice] = "You've logged in."
+        redirect_to root_path
+      end
     else
-      flash[:error] = "There's something wrong with username or password"
-      redirect_to register_path
+        flash[:error] = "There's something wrong with username or password"
+        render :new
     end
-
   end
 
   def destroy

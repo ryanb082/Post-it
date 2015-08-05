@@ -6,6 +6,8 @@ PostitTemplate::Application.routes.draw do
   post '/login', to: 'sessions#create'
   # why did it need to be called sessions instead of session
   get 'logout', to: 'sessions#destroy'
+  get '/pin', to: 'sessions#pin'
+  post '/pin', to: 'sessions#pin'
 
 
   
