@@ -9,5 +9,12 @@
       <%= f.label  :password %>
       <%= f.text_field :password %>
     </div>
+    <div class='control-group'>
+      <%= f.label :phone, "Phone Number <small>(numbers only)</small>".html_safe %>
+      <%= f.text_field :phone, maxlength: 9 %>
+      <%= link_to '#', id: 'two_factor_phone' do %>
+        <i class='icon-question-sign'></i>
+      <% end %>
+    </div>
   <%= f.submit @user.new_record? ? "Register" : "Update Profile", class: 'btn btn-success' %>
 <% end %></div>
