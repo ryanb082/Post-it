@@ -18,6 +18,24 @@ class User < ActiveRecord::Base
     self.update_column(:pin, rand(10**6)) # randome 6 digit number
   end
 
+   def remove_pin!
+    self.update_column(:pin, nil)
+  end
+
+  def send_pin_to_twilio
+    account_sid = 'AC3d4fcc78de34a2bbc8827773e3bdc6a1' 
+    auth_token = 'd4ea49fe94103e0bf7bd15dae308f1b0' 
+ 
+# set up a client to talk to the Twilio REST API 
+    client = Twilio::REST::Client.new account_sid, auth_token 
+
+    msg = "Hi, please input the pin to continue login: #{self.pin}"
+    client.account.messages.create({
+      :from => '+15207750095', 
+      :to => '9727624760', 
+      :body => msg})
+  end
+
 
   def admin?
     self.role == 'admin'
