@@ -144,6 +144,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 4.0.0)
   sdoc
+  sprockets (~> 2.0)
   sqlite3
   turbolinks
   twilio-ruby
